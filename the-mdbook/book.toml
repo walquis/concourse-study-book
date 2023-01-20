@@ -1,0 +1,9 @@
+[book]
+authors = ["Chris Walquist"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Chris's Trip thru Stark & Wayne's Concourse Tutorial"
+
+[build]
+build-dir = "../docs"
