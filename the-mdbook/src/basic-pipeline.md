@@ -19,3 +19,8 @@ To run the job: Click the job, then click the big "+" at top right.  Or, from cm
 $ ft trigger-job -j hello-world/job-hello-world
 # or ft tj       -j hello-world/job-hello-world
 ```
+
+To destroy the pipeline:
+```
+$ ft dp -p hello-world
+```

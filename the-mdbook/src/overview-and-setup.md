@@ -73,4 +73,4 @@ You have to specify the `target` with every command.  I added this alias to my `
 ```
 alias ft="fly -t tutorial"
 ```
-
+NOTE: If `fly` complains of version incompatibility and refuses to run, try visiting the `--concourse-url` above and downloading a fly from there.
