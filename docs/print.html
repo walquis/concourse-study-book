@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="overview-and-setup.html"><strong aria-hidden="true">1.</strong> Overview and Setup</a></li><li class="chapter-item expanded "><a href="fly-commands.html"><strong aria-hidden="true">2.</strong> Fly commands & aliases</a></li><li class="chapter-item expanded "><a href="hello-world.html"><strong aria-hidden="true">3.</strong> Hello World</a></li><li class="chapter-item expanded "><a href="task-inputs.html"><strong aria-hidden="true">4.</strong> Task Inputs</a></li><li class="chapter-item expanded "><a href="task-run.html"><strong aria-hidden="true">5.</strong> Task Scripts - the run feature</a></li><li class="chapter-item expanded "><a href="basic-pipeline.html"><strong aria-hidden="true">6.</strong> Basic Pipeline</a></li><li class="chapter-item expanded "><a href="pipeline-resources.html"><strong aria-hidden="true">7.</strong> Resources</a></li><li class="chapter-item expanded "><a href="triggering-jobs.html"><strong aria-hidden="true">8.</strong> Triggering Jobs</a></li><li class="chapter-item expanded "><a href="hello-world.html"><strong aria-hidden="true">9.</strong> Destroying Pipelines</a></li><li class="chapter-item expanded "><a href="hello-world.html"><strong aria-hidden="true">10.</strong> Using Resource Inputs in Job Tasks</a></li><li class="chapter-item expanded "><a href="hello-world.html"><strong aria-hidden="true">11.</strong> Passing Task Outputs to Task Inputs</a></li><li class="chapter-item expanded "><a href="hello-world.html"><strong aria-hidden="true">12.</strong> Publishing Outputs</a></li><li class="chapter-item expanded "><a href="hello-world.html"><strong aria-hidden="true">13.</strong> Parameters</a></li><li class="chapter-item expanded "><a href="hello-world.html"><strong aria-hidden="true">14.</strong> Pipeline Jobs</a></li><li class="chapter-item expanded "><a href="hello-world.html"><strong aria-hidden="true">15.</strong> Secrets with Credentials Manager</a></li><li class="chapter-item expanded "><a href="hello-world.html"><strong aria-hidden="true">16.</strong> Miscellaneous</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="overview-and-setup.html"><strong aria-hidden="true">1.</strong> Overview and Setup</a></li><li class="chapter-item expanded "><a href="fly-commands.html"><strong aria-hidden="true">2.</strong> Fly commands & aliases</a></li><li class="chapter-item expanded "><a href="task-inputs.html"><strong aria-hidden="true">3.</strong> Task Inputs</a></li><li class="chapter-item expanded "><a href="task-run.html"><strong aria-hidden="true">4.</strong> Task Scripts - the run feature</a></li><li class="chapter-item expanded "><a href="basic-pipeline.html"><strong aria-hidden="true">5.</strong> Basic Pipeline</a></li><li class="chapter-item expanded "><a href="pipeline-resources.html"><strong aria-hidden="true">6.</strong> Resources</a></li><li class="chapter-item expanded "><a href="triggering-jobs.html"><strong aria-hidden="true">7.</strong> Triggering Jobs (and the API)</a></li><li class="chapter-item expanded "><a href="task-inputs-and-outputs.html"><strong aria-hidden="true">8.</strong> Inputs and Outputs: Using Resources in Job Tasks</a></li><li class="chapter-item expanded "><a href="misc.html"><strong aria-hidden="true">9.</strong> Passing Task Outputs to Task Inputs</a></li><li class="chapter-item expanded "><a href="misc.html"><strong aria-hidden="true">10.</strong> Publishing Outputs</a></li><li class="chapter-item expanded "><a href="misc.html"><strong aria-hidden="true">11.</strong> Parameters</a></li><li class="chapter-item expanded "><a href="misc.html"><strong aria-hidden="true">12.</strong> Pipeline Jobs</a></li><li class="chapter-item expanded "><a href="misc.html"><strong aria-hidden="true">13.</strong> Secrets with Credentials Manager</a></li><li class="chapter-item expanded "><a href="misc.html"><strong aria-hidden="true">14.</strong> Miscellaneous</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -199,6 +199,7 @@ cat ~/.flyrc
 <p>You have to specify the <code>target</code> with every command.  I added this alias to my <code>.zshrc</code>...</p>
 <pre><code>alias ft=&quot;fly -t tutorial&quot;
 </code></pre>
+<p>NOTE: If <code>fly</code> complains of version incompatibility and refuses to run, try visiting the <code>--concourse-url</code> above and downloading a fly from there.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="fly-commands-by-category"><a class="header" href="#fly-commands-by-category">Fly commands, by category</a></h1>
 <p><code>fly help</code> shows this same list; here, they're organized by category.</p>
 <p>The letters in parens are aliases.</p>
@@ -290,7 +291,6 @@ cat ~/.flyrc
 <li><code>volumes</code> -                    List the active volumes (<strong>vs</strong>)</li>
 <li><code>completion</code> -                 generate shell completion code</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous"><a class="header" href="#miscellaneous">Miscellaneous</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="task-inputs"><a class="header" href="#task-inputs">Task Inputs</a></h1>
 <p>Concourse task inputs are directories.</p>
 <p>NOTE: If on the command line, you give a yml-defined input a value, <strong>the contents of that directory will be recursively copied into the container</strong>. Newbies to Concourse (like me) may find this somewhat non-intuitive.</p>
@@ -349,6 +349,9 @@ $ ft unpause-job -j hello-world/job-hello-world
 <pre><code>$ ft trigger-job -j hello-world/job-hello-world
 # or ft tj       -j hello-world/job-hello-world
 </code></pre>
+<p>To destroy the pipeline:</p>
+<pre><code>$ ft dp -p hello-world
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="resources-1"><a class="header" href="#resources-1">Resources</a></h1>
 <p>Concourse offers no services for storing/retrieving your data. No git repositories. No blobstores. No build numbers. Every input and output must be provided externally. Concourse calls them <a href="https://resource-types.concourse-ci.org/">&quot;Resources&quot;</a>. For example, <code>git</code>, <code>s3</code>, and <code>semver</code> provide git repos, blobstore, and build versions, respectively.</p>
 <p>Your pipelines will mostly use a <code>git</code> resource to pull in the task files.</p>
@@ -382,12 +385,13 @@ $ ft builds --help  # Show options for 'builds' command
 <div style="break-before: page; page-break-before: always;"></div><h1 id="triggering-jobs"><a class="header" href="#triggering-jobs">Triggering Jobs</a></h1>
 <h2 id="four-ways-to-trigger-a-job"><a class="header" href="#four-ways-to-trigger-a-job">Four ways to trigger a job</a></h2>
 <ol>
-<li>Click &quot;+&quot; button on job page of UI</li>
-<li>Cmd-line, e.g., <code>ft trigger-job -j &lt;pipeline&gt;/&lt;jobname&gt;</code></li>
-<li>Add a trigger to a resource</li>
-<li>HTTP POST to Concourse API</li>
+<li>Click the big &quot;+&quot; button on the UI's job page.</li>
+<li>A <code>fly</code> command: <code>ft tj -j &lt;pipeline&gt;/&lt;jobname&gt;</code>.</li>
+<li>Add a trigger to a resource.</li>
+<li>Make an HTTP POST to the Concourse API.</li>
 </ol>
 <h2 id="adding-a-trigger-to-a-resource"><a class="header" href="#adding-a-trigger-to-a-resource">Adding a trigger to a resource</a></h2>
+<p>The code sample lives in <code>tutorials/basic/triggers</code>.</p>
 <p>In the plan's <code>get</code> of the resource, add <code>trigger: true</code>...</p>
 <pre><code>jobs:
 - name: some-job
@@ -408,14 +412,102 @@ jobs:
       trigger: true
 ...
 </code></pre>
+<p>NOTE: The UI shows non-triggering resources as a hyphenated line into the job. Triggering resources have a solid line.</p>
+<h2 id="making-an-api-call"><a class="header" href="#making-an-api-call">Making an API call</a></h2>
+<p>Every fly command accepts a <code>--verbose</code> option, which prints the request and response (except for the Authorization header).</p>
+<p>Authorization is Bearer (aka &quot;token authorization&quot;).  You can get the token from <code>~/.zshrc</code>.</p>
+<p>NOTE: The HTTP response often has much more information than the normal console output.  For instance, the <code>ft teams --verbose</code> also makes an <code>info</code> API call which has no counterpart in the <code>fly</code> command list.</p>
+<pre><code>$ ft teams --verbose
+ft teams --verbose     
+2023/01/24 14:19:13 GET /api/v1/info HTTP/1.1
+Host: 10.8.57.64:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+2023/01/24 14:19:13 HTTP/1.1 200 OK
+Content-Length: 297
+Cache-Control: no-store, private
+Content-Security-Policy: *
+Content-Type: application/json
+Date: Tue, 24 Jan 2023 20:19:13 GMT
+Vary: Accept-Encoding
+X-Concourse-Version: 7.8.3
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Frame-Options: allow
+X-Xss-Protection: 1; mode=block
+
+{&quot;version&quot;:&quot;7.8.3&quot;,&quot;worker_version&quot;:&quot;2.4&quot;,&quot;feature_flags&quot;:{&quot;across_step&quot;:false,&quot;build_rerun&quot;:false,&quot;cache_streamed_volumes&quot;:false,&quot;global_resources&quot;:false,&quot;pipeline_instances&quot;:false,&quot;redact_secrets&quot;:false,&quot;resource_causality&quot;:false},&quot;external_url&quot;:&quot;http://10.8.57.64:8080&quot;,&quot;cluster_name&quot;:&quot;arm64&quot;}
+
+2023/01/24 14:19:13 GET /api/v1/teams HTTP/1.1
+Host: 10.8.57.64:8080
+User-Agent: Go-http-client/1.1
+Accept-Encoding: gzip
+
+
+2023/01/24 14:19:13 HTTP/1.1 200 OK
+Content-Length: 79
+Cache-Control: no-store, private
+Content-Security-Policy: *
+Content-Type: application/json
+Date: Tue, 24 Jan 2023 20:19:13 GMT
+Vary: Accept-Encoding
+X-Concourse-Version: 7.8.3
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Frame-Options: allow
+X-Xss-Protection: 1; mode=block
+
+[{&quot;id&quot;:1,&quot;name&quot;:&quot;main&quot;,&quot;auth&quot;:{&quot;owner&quot;:{&quot;groups&quot;:[],&quot;users&quot;:[&quot;local:test&quot;]}}}]
+
+name
+main
+</code></pre>
+<p>Passing the /api/v1/info JSON thru jq...</p>
+<pre><code>$ echo '{&quot;sub&quot;:&quot;CgR0ZXN0EgVsb2NhbA&quot;,&quot;name&quot;:&quot;test&quot;,&quot;user_id&quot;:&quot;test&quot;,&quot;user_name&quot;:&quot;&quot;,&quot;email&quot;:&quot;test&quot;,&quot;is_admin&quot;:true,&quot;is_system&quot;:false,&quot;teams&quot;:{&quot;main&quot;:[&quot;owner&quot;]},&quot;connector&quot;:&quot;local&quot;,&quot;display_user_id&quot;:&quot;test&quot;}' | jq
+{
+  &quot;sub&quot;: &quot;CgR0ZXN0EgVsb2NhbA&quot;,
+  &quot;name&quot;: &quot;test&quot;,
+  &quot;user_id&quot;: &quot;test&quot;,
+  &quot;user_name&quot;: &quot;&quot;,
+  &quot;email&quot;: &quot;test&quot;,
+  &quot;is_admin&quot;: true,
+  &quot;is_system&quot;: false,
+  &quot;teams&quot;: {
+    &quot;main&quot;: [
+      &quot;owner&quot;
+    ]
+  },
+  &quot;connector&quot;: &quot;local&quot;,
+  &quot;display_user_id&quot;: &quot;test&quot;
+}
+</code></pre>
+<p>$ echo </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="inputs-and-outputs-using-resources-in-job-tasks"><a class="header" href="#inputs-and-outputs-using-resources-in-job-tasks">Inputs and Outputs: Using Resources in Job Tasks</a></h1>
+<h2 id="using-resource-outputs-for-task-inputs"><a class="header" href="#using-resource-outputs-for-task-inputs">Using resource outputs for task inputs</a></h2>
+<p>The sample code lives in <code>tutorials/basic/job-inputs</code>.</p>
+<p>Add the pipeline and unpause it.</p>
+<ul>
+<li>An app is retrieved via <code>get</code> of the <code>resource-app</code> git resource.</li>
+<li>Test scripts are retrieved via <code>get</code> of the <code>resource-tutorial</code> git resource.</li>
+<li>The <code>web-app-tests</code> script is run from the previously retrieved resource directory. </li>
+</ul>
+<p>Notice that when the pipeline is unpaused, the job automatically starts.</p>
+<p>(Notice also how <code>task_run_test.yml</code> uses the <code>path</code> attribute to copy the <code>resource-app</code> output to an alternate path to use for its input, so as to make Go testing happy).</p>
+<h2 id="using-task-outputs-for-subsequent-task-inputs"><a class="header" href="#using-task-outputs-for-subsequent-task-inputs">Using task outputs for subsequent task inputs</a></h2>
+<p>The sample code lives in <code>tutorials/basic/task-outputs-to-inputs</code>.</p>
+<p>The git resources in the previous example auto-created output that were used by subsequent tasks as input.</p>
+<p>What about tasks that create output?  Let's see how to pass that output to a later task as input.</p>
+<p>A task can declare <code>outputs:</code>.  <strong>The name of the output corresponds to the name of the directory in which the next task will find those outputs.</strong></p>
+<p>The first task (whose source code is retrieved via the git resource) creates some files.  (Note the <code>mkdir some-files</code> is unnecessary; Concourse goes ahead and does this).</p>
+<p>The second task specifies <code>some-files</code> as its input, and runs a script that lists them.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous"><a class="header" href="#miscellaneous">Miscellaneous</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous-1"><a class="header" href="#miscellaneous-1">Miscellaneous</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous-2"><a class="header" href="#miscellaneous-2">Miscellaneous</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous-3"><a class="header" href="#miscellaneous-3">Miscellaneous</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous-4"><a class="header" href="#miscellaneous-4">Miscellaneous</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous-5"><a class="header" href="#miscellaneous-5">Miscellaneous</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous-6"><a class="header" href="#miscellaneous-6">Miscellaneous</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous-7"><a class="header" href="#miscellaneous-7">Miscellaneous</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="miscellaneous-8"><a class="header" href="#miscellaneous-8">Miscellaneous</a></h1>
 
                     </main>
 
